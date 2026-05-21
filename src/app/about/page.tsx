@@ -1,25 +1,20 @@
-import Image from "next/image";
 import Link from "next/link";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations/FadeIn";
-import { Target, BookOpen, Monitor, Heart } from "lucide-react";
+import { Target, BookOpen, Monitor, Heart, GraduationCap, BarChart3, Users } from "lucide-react";
 
 export default function AboutPage() {
   return (
     <main className="flex-1 w-full bg-white">
-      {/* Hero Section */}
-      <section className="relative h-[40vh] min-h-[400px] w-full flex items-center justify-center overflow-hidden">
-        <Image
-          src="https://images.unsplash.com/photo-1523050854058-8df90110c476?w=1600&q=80"
-          alt="Ely Edu - Luyện thi online"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-black/40" />
+      {/* Hero Section — gradient instead of broken external image */}
+      <section className="relative h-[40vh] min-h-[400px] w-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-brand-accent-light via-brand-bg to-white">
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-accent/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-brand-accent-light/40 rounded-full blur-3xl" />
+        </div>
         <div className="relative z-10 text-center px-4">
           <FadeIn direction="up">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight">Về ely_edu.</h1>
-            <p className="text-white/90 text-lg md:text-xl max-w-2xl mx-auto font-medium">
+            <h1 className="text-4xl md:text-6xl font-bold text-brand-dark mb-4 tracking-tight">Về ely_edu.</h1>
+            <p className="text-brand-text-secondary text-lg md:text-xl max-w-2xl mx-auto font-medium">
               Nền tảng luyện thi trực tuyến, đồng hành cùng bạn chinh phục kỳ thi.
             </p>
           </FadeIn>
@@ -30,14 +25,24 @@ export default function AboutPage() {
       <section className="py-20 md:py-32 px-4 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-center gap-12 md:gap-24">
           <FadeIn direction="right" className="w-full md:w-1/2">
-            <div className="relative aspect-[4/5] w-full max-w-md mx-auto rounded-[40px] overflow-hidden shadow-2xl">
-              <Image
-                src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80"
-                alt="Sứ mệnh của Ely Edu"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-brand-dark/10" />
+            <div className="relative aspect-[4/5] w-full max-w-md mx-auto rounded-[40px] overflow-hidden bg-gradient-to-br from-brand-accent-light to-brand-bg flex items-center justify-center shadow-2xl">
+              <div className="text-center p-8">
+                <div className="w-24 h-24 bg-white rounded-3xl flex items-center justify-center text-brand-accent mx-auto mb-6 shadow-lg">
+                  <BookOpen className="w-12 h-12" />
+                </div>
+                <p className="text-3xl font-bold text-brand-dark mb-2">784+</p>
+                <p className="text-brand-text-secondary font-medium">Bài test online</p>
+                <div className="mt-6 flex justify-center gap-4">
+                  <div className="bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm">
+                    <p className="text-lg font-bold text-brand-accent">100%</p>
+                    <p className="text-xs text-brand-text-secondary">Miễn phí</p>
+                  </div>
+                  <div className="bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm">
+                    <p className="text-lg font-bold text-brand-accent">4.9</p>
+                    <p className="text-xs text-brand-text-secondary">Đánh giá</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </FadeIn>
 
@@ -67,9 +72,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Core Values */}
+      {/* Core Values — emojis replaced with Lucide icons */}
       <section className="py-20 md:py-32 px-4 bg-brand-bg relative overflow-hidden">
-        {/* Decor */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-brand-accent-light/40 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/60 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
@@ -91,21 +95,21 @@ export default function AboutPage() {
               {
                 icon: Monitor,
                 title: "Trải Nghiệm Thi Máy",
-                description: "Mô phỏng chính xác giao diện và áp lực thời gian thực tế, giúp quen thuộc thao tác trước ngày thi."
+                description: "Mô phỏng chính xác giao diện thi, giúp quen thuộc thao tác trước ngày thi."
               },
               {
                 icon: BookOpen,
                 title: "Phân Tích Thông Minh",
-                description: "Hệ thống tự động phân tích điểm yếu, đề xuất lộ trình ôn tập cá nhân hoá cho từng học sinh."
+                description: "Hệ thống tự động phân tích điểm yếu, đề xuất lộ trình ôn tập cá nhân hoá."
               },
               {
                 icon: Heart,
                 title: "Miễn Phí Cho Cộng Đồng",
-                description: "100% miễn phí, không quảng cáo. Ely Edu cam kết đồng hành với mọi học sinh không phân biệt."
+                description: "100% miễn phí, không quảng cáo. Cam kết đồng hành với mọi học sinh."
               }
             ].map((value, idx) => (
               <StaggerItem key={idx}>
-                <div className="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full">
+                <div className="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full cursor-pointer">
                   <div className="w-14 h-14 bg-brand-bg rounded-2xl flex items-center justify-center text-brand-accent mb-6">
                     <value.icon className="w-7 h-7" />
                   </div>
@@ -120,17 +124,28 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Target Audience */}
+      {/* Target Audience — emojis replaced with Lucide icons */}
       <section className="py-20 md:py-32 px-4 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-24">
           <FadeIn direction="left" className="w-full md:w-1/2">
-            <div className="relative aspect-video md:aspect-square w-full rounded-3xl overflow-hidden shadow-lg">
-              <Image
-                src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800&q=80"
-                alt="Học sinh luyện thi"
-                fill
-                className="object-cover"
-              />
+            <div className="relative w-full aspect-video md:aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-brand-accent-light/60 to-brand-bg flex items-center justify-center shadow-lg">
+              <div className="grid grid-cols-2 gap-4 p-8">
+                <div className="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-sm text-center">
+                  <GraduationCap className="w-8 h-8 text-brand-accent mx-auto mb-2" />
+                  <p className="text-2xl font-bold text-brand-dark">12</p>
+                  <p className="text-xs text-brand-text-secondary">Môn THPT</p>
+                </div>
+                <div className="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-sm text-center">
+                  <BarChart3 className="w-8 h-8 text-brand-accent mx-auto mb-2" />
+                  <p className="text-2xl font-bold text-brand-dark">3</p>
+                  <p className="text-xs text-brand-text-secondary">Trường ĐGNL</p>
+                </div>
+                <div className="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-sm text-center col-span-2">
+                  <Users className="w-8 h-8 text-brand-accent mx-auto mb-2" />
+                  <p className="text-2xl font-bold text-brand-dark">5,333+</p>
+                  <p className="text-xs text-brand-text-secondary">Học viên mỗi ngày</p>
+                </div>
+              </div>
             </div>
           </FadeIn>
 
@@ -143,24 +158,39 @@ export default function AboutPage() {
             </p>
 
             <div className="space-y-6">
-              <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-                <h4 className="font-bold text-brand-dark mb-2">🎓 Học sinh lớp 12</h4>
-                <p className="text-gray-600">Ôn thi Tốt nghiệp THPT với hàng trăm đề thi thử chuẩn format.</p>
+              <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100 flex items-start gap-4">
+                <div className="w-10 h-10 bg-brand-accent-light rounded-xl flex items-center justify-center text-brand-accent flex-shrink-0">
+                  <GraduationCap className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-brand-dark mb-1">Học sinh lớp 12</h4>
+                  <p className="text-gray-600">Ôn thi Tốt nghiệp THPT với hàng trăm đề thi thử chuẩn format.</p>
+                </div>
               </div>
-              <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-                <h4 className="font-bold text-brand-dark mb-2">📚 Thí sinh ĐGNL & ĐGTD</h4>
-                <p className="text-gray-600">Luyện đề ĐGNL các trường ĐH hàng đầu: ĐHQG TP.HCM, ĐHQG HN, Bách Khoa.</p>
+              <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100 flex items-start gap-4">
+                <div className="w-10 h-10 bg-brand-accent-light rounded-xl flex items-center justify-center text-brand-accent flex-shrink-0">
+                  <BookOpen className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-brand-dark mb-1">Thí sinh ĐGNL & ĐGTD</h4>
+                  <p className="text-gray-600">Luyện đề ĐGNL các trường ĐH hàng đầu: ĐHQG TP.HCM, ĐHQG HN, Bách Khoa.</p>
+                </div>
               </div>
-              <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-                <h4 className="font-bold text-brand-dark mb-2">👩‍🏫 Giáo viên & Phụ huynh</h4>
-                <p className="text-gray-600">Theo dõi tiến độ, giao bài tập và đánh giá năng lực học sinh hiệu quả.</p>
+              <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100 flex items-start gap-4">
+                <div className="w-10 h-10 bg-brand-accent-light rounded-xl flex items-center justify-center text-brand-accent flex-shrink-0">
+                  <Users className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-brand-dark mb-1">Giáo viên & Phụ huynh</h4>
+                  <p className="text-gray-600">Theo dõi tiến độ, giao bài tập và đánh giá năng lực học sinh hiệu quả.</p>
+                </div>
               </div>
             </div>
 
             <div className="mt-8">
               <Link
                 href="/tot-nghiep-thpt"
-                className="inline-block bg-brand-dark text-white px-8 py-4 rounded-full font-bold hover:bg-brand-accent transition-colors shadow-lg"
+                className="inline-block bg-brand-dark text-white px-8 py-4 rounded-full font-bold hover:bg-brand-accent transition-colors shadow-lg cursor-pointer"
               >
                 Bắt đầu luyện thi ngay
               </Link>

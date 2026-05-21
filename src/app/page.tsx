@@ -4,6 +4,7 @@ import SubjectGrid from "@/components/home/SubjectGrid";
 import FeaturesSection from "@/components/home/FeaturesSection";
 import ComparisonSection from "@/components/home/ComparisonSection";
 import Testimonials from "@/components/home/Testimonials";
+import CTASection from "@/components/home/CTASection";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <FeaturesSection />
       <ComparisonSection />
       <Testimonials />
+      <CTASection />
     </main>
   );
 }

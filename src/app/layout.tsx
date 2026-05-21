@@ -3,6 +3,7 @@ import { Quicksand } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import StoreProvider from "@/lib/StoreProvider";
 
 const quicksand = Quicksand({
   variable: "--font-quicksand",
@@ -22,9 +23,11 @@ export default function RootLayout({
   return (
     <html lang="vi" className={`${quicksand.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-brand-bg text-brand-dark">
-        <Navbar />
-        {children}
-        <Footer />
+        <StoreProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </StoreProvider>
       </body>
     </html>
   );
