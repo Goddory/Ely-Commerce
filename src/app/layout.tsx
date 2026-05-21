@@ -10,8 +10,8 @@ const quicksand = Quicksand({
 });
 
 export const metadata: Metadata = {
-  title: "Ely-Commerce | Thời trang Gen Z",
-  description: "Ely-Commerce - Nơi thể hiện phong cách của bạn.",
+  title: "ely_edu | Luyện thi Tốt Nghiệp THPT & ĐGNL Online",
+  description: "Nền tảng luyện thi TN THPT và ĐGNL online miễn phí. 784+ bài test, mô phỏng chuẩn format đề thi thật, phân tích chi tiết kết quả.",
 };
 
 export default function RootLayout({

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations/FadeIn";
-import { Leaf, Heart, ShieldCheck, Zap } from "lucide-react";
+import { Target, BookOpen, Monitor, Heart } from "lucide-react";
 
 export default function AboutPage() {
   return (
@@ -9,8 +9,8 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section className="relative h-[40vh] min-h-[400px] w-full flex items-center justify-center overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1445205170230-053b83016050?w=1600&q=80"
-          alt="Ely Commerce Fashion"
+          src="https://images.unsplash.com/photo-1523050854058-8df90110c476?w=1600&q=80"
+          alt="Ely Edu - Luyện thi online"
           fill
           className="object-cover"
           priority
@@ -18,46 +18,49 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-black/40" />
         <div className="relative z-10 text-center px-4">
           <FadeIn direction="up">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight">Về Ely.</h1>
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight">Về ely_edu.</h1>
             <p className="text-white/90 text-lg md:text-xl max-w-2xl mx-auto font-medium">
-              Định hình phong cách, tôn vinh cá tính của riêng bạn.
+              Nền tảng luyện thi trực tuyến, đồng hành cùng bạn chinh phục kỳ thi.
             </p>
           </FadeIn>
         </div>
       </section>
 
-      {/* Our Story */}
+      {/* Our Mission */}
       <section className="py-20 md:py-32 px-4 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-center gap-12 md:gap-24">
           <FadeIn direction="right" className="w-full md:w-1/2">
             <div className="relative aspect-[4/5] w-full max-w-md mx-auto rounded-[40px] overflow-hidden shadow-2xl">
               <Image
-                src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80"
-                alt="Câu chuyện của Ely"
+                src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80"
+                alt="Sứ mệnh của Ely Edu"
                 fill
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-brand-dark/10" />
             </div>
           </FadeIn>
-          
+
           <FadeIn direction="left" delay={0.2} className="w-full md:w-1/2 text-center md:text-left">
             <h2 className="text-brand-accent text-sm md:text-base font-bold tracking-widest uppercase mb-4">
-              Câu Chuyện Của Chúng Tôi
+              Sứ Mệnh Của Chúng Tôi
             </h2>
             <h3 className="text-3xl md:text-5xl font-bold text-brand-dark mb-6 leading-tight">
-              Khởi nguồn từ <br className="hidden md:block" />
-              đam mê thời trang
+              Giúp mọi học sinh <br className="hidden md:block" />
+              tự tin đi thi
             </h3>
             <div className="space-y-4 text-brand-text-secondary text-lg">
               <p>
-                Được thành lập vào năm 2023, Ely ra đời với mong muốn mang đến những sản phẩm thời trang chất lượng cao với mức giá dễ tiếp cận nhất cho giới trẻ Việt Nam.
+                Ely Edu ra đời với mong muốn mang đến cho học sinh trên toàn quốc một nền tảng
+                luyện thi online miễn phí, chất lượng và dễ tiếp cận.
               </p>
               <p>
-                Chúng tôi tin rằng thời trang không chỉ là những món đồ khoác lên người, mà còn là ngôn ngữ không lời để bạn thể hiện cá tính, tâm trạng và cách bạn nhìn nhận thế giới.
+                Chúng tôi tin rằng mọi học sinh đều xứng đáng được ôn tập với tài liệu tốt nhất,
+                mô phỏng sát thực tế thi thật, để bước vào phòng thi với tâm lý vững vàng.
               </p>
               <p>
-                Từ những bản phác thảo đầu tiên đến đường kim mũi chỉ cuối cùng, mỗi sản phẩm tại Ely đều được chăm chút tỉ mỉ để đảm bảo sự thoải mái và tự tin tuyệt đối cho người mặc.
+                Từ kho đề thi được biên soạn kỹ lưỡng đến hệ thống phân tích điểm yếu thông minh,
+                mỗi tính năng của Ely Edu đều hướng tới một mục tiêu: giúp bạn đạt điểm cao nhất.
               </p>
             </div>
           </FadeIn>
@@ -74,31 +77,31 @@ export default function AboutPage() {
           <FadeIn direction="up" className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-brand-dark mb-4">Giá Trị Cốt Lõi</h2>
             <p className="text-brand-text-secondary text-lg max-w-2xl mx-auto">
-              Những nguyên tắc nền tảng định hướng cho mọi hoạt động và sản phẩm của Ely.
+              Những nguyên tắc nền tảng định hướng cho mọi hoạt động và sản phẩm của Ely Edu.
             </p>
           </FadeIn>
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
+                icon: Target,
+                title: "Chất Lượng Đề",
+                description: "Mỗi đề thi đều được biên soạn kỹ lưỡng, bám sát cấu trúc và ma trận kiến thức mới nhất."
+              },
+              {
+                icon: Monitor,
+                title: "Trải Nghiệm Thi Máy",
+                description: "Mô phỏng chính xác giao diện và áp lực thời gian thực tế, giúp quen thuộc thao tác trước ngày thi."
+              },
+              {
+                icon: BookOpen,
+                title: "Phân Tích Thông Minh",
+                description: "Hệ thống tự động phân tích điểm yếu, đề xuất lộ trình ôn tập cá nhân hoá cho từng học sinh."
+              },
+              {
                 icon: Heart,
-                title: "Tận Tâm",
-                description: "Khách hàng là trung tâm trong mọi quyết định. Chúng tôi phục vụ bằng cả trái tim."
-              },
-              {
-                icon: ShieldCheck,
-                title: "Chất Lượng",
-                description: "Cam kết mang đến những sản phẩm bền bỉ, an toàn và tinh tế trong từng chi tiết."
-              },
-              {
-                icon: Zap,
-                title: "Sáng Tạo",
-                description: "Không ngừng đổi mới, bắt kịp xu hướng và tạo ra những phong cách độc đáo."
-              },
-              {
-                icon: Leaf,
-                title: "Bền Vững",
-                description: "Hướng tới thời trang xanh, sử dụng chất liệu thân thiện với môi trường."
+                title: "Miễn Phí Cho Cộng Đồng",
+                description: "100% miễn phí, không quảng cáo. Ely Edu cam kết đồng hành với mọi học sinh không phân biệt."
               }
             ].map((value, idx) => (
               <StaggerItem key={idx}>
@@ -117,47 +120,49 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Store Location */}
+      {/* Target Audience */}
       <section className="py-20 md:py-32 px-4 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-24">
           <FadeIn direction="left" className="w-full md:w-1/2">
             <div className="relative aspect-video md:aspect-square w-full rounded-3xl overflow-hidden shadow-lg">
               <Image
-                src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80"
-                alt="Không gian cửa hàng Ely"
+                src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800&q=80"
+                alt="Học sinh luyện thi"
                 fill
                 className="object-cover"
               />
             </div>
           </FadeIn>
-          
+
           <FadeIn direction="right" delay={0.2} className="w-full md:w-1/2 text-center md:text-left">
             <h2 className="text-3xl md:text-5xl font-bold text-brand-dark mb-6">
-              Ghé thăm <br className="hidden md:block" /> Không gian Ely
+              Ely Edu phù hợp <br className="hidden md:block" /> với ai?
             </h2>
             <p className="text-brand-text-secondary text-lg mb-8">
-              Trải nghiệm mua sắm trực tiếp tại không gian mang đậm chất nghệ thuật và phong cách sống hiện đại.
+              Dù bạn là ai, Ely Edu đều có lộ trình phù hợp để giúp bạn chinh phục mục tiêu.
             </p>
-            
+
             <div className="space-y-6">
               <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-                <h4 className="font-bold text-brand-dark mb-2">Store Quận 1</h4>
-                <p className="text-gray-600 mb-1">123 Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP.HCM</p>
-                <p className="text-gray-500 text-sm">Mở cửa: 09:00 - 22:00 (T2 - CN)</p>
+                <h4 className="font-bold text-brand-dark mb-2">🎓 Học sinh lớp 12</h4>
+                <p className="text-gray-600">Ôn thi Tốt nghiệp THPT với hàng trăm đề thi thử chuẩn format.</p>
               </div>
               <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-                <h4 className="font-bold text-brand-dark mb-2">Store Cầu Giấy</h4>
-                <p className="text-gray-600 mb-1">456 Cầu Giấy, Phường Dịch Vọng, Quận Cầu Giấy, Hà Nội</p>
-                <p className="text-gray-500 text-sm">Mở cửa: 09:00 - 22:00 (T2 - CN)</p>
+                <h4 className="font-bold text-brand-dark mb-2">📚 Thí sinh ĐGNL & ĐGTD</h4>
+                <p className="text-gray-600">Luyện đề ĐGNL các trường ĐH hàng đầu: ĐHQG TP.HCM, ĐHQG HN, Bách Khoa.</p>
+              </div>
+              <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                <h4 className="font-bold text-brand-dark mb-2">👩‍🏫 Giáo viên & Phụ huynh</h4>
+                <p className="text-gray-600">Theo dõi tiến độ, giao bài tập và đánh giá năng lực học sinh hiệu quả.</p>
               </div>
             </div>
 
             <div className="mt-8">
-              <Link 
-                href="/products"
+              <Link
+                href="/tot-nghiep-thpt"
                 className="inline-block bg-brand-dark text-white px-8 py-4 rounded-full font-bold hover:bg-brand-accent transition-colors shadow-lg"
               >
-                Khám phá sản phẩm trực tuyến
+                Bắt đầu luyện thi ngay
               </Link>
             </div>
           </FadeIn>
