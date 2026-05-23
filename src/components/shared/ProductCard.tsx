@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Heart } from "lucide-react";
+import { useWishlist } from "@/context/WishlistContext";
 
 interface ProductCardProps {
   id: string;
@@ -11,11 +14,20 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ id, name, price, image, isNew }: ProductCardProps) {
+  const { isInWishlist, toggleWishlist } = useWishlist();
+  const favorited = isInWishlist(id);
+
+  const handleWishlistClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleWishlist({ id, name, price, image, isNew });
+  };
+
   return (
     <div className="group relative flex flex-col bg-white rounded-3xl p-3 shadow-sm hover:shadow-xl transition-all duration-300">
       {/* Image container */}
       <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl bg-brand-bg mb-4">
-        <Link href={`/products/${id}`} className="block h-full w-full">
+        <Link href={`/products/${id}`} className="relative block h-full w-full">
           <Image
             src={image}
             alt={name}
@@ -31,10 +43,15 @@ export default function ProductCard({ id, name, price, image, isNew }: ProductCa
         )}
         {/* Hover action */}
         <button 
-          aria-label="Add to wishlist"
-          className="absolute top-3 right-3 bg-white/80 backdrop-blur-sm p-2 rounded-full text-brand-dark hover:text-brand-accent opacity-0 group-hover:opacity-100 transition-opacity z-10"
+          onClick={handleWishlistClick}
+          aria-label={favorited ? "Remove from wishlist" : "Add to wishlist"}
+          className={`absolute top-3 right-3 bg-white/90 backdrop-blur-sm p-2 rounded-full hover:scale-110 active:scale-95 transition-all duration-200 z-10 shadow-sm ${
+            favorited 
+              ? "opacity-100 text-brand-accent bg-white" 
+              : "opacity-0 group-hover:opacity-100 text-brand-dark hover:text-brand-accent"
+          }`}
         >
-          <Heart className="w-4 h-4" />
+          <Heart className={`w-4 h-4 transition-colors ${favorited ? "fill-brand-accent text-brand-accent" : ""}`} />
         </button>
       </div>
 

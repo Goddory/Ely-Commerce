@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useParams, useSearchParams, useRouter, usePathname } from "next/navigation";
-import { useEffect, useState, Suspense } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { ChevronRight, Loader2 } from "lucide-react";
 import ProductCard from "@/components/shared/ProductCard";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations/FadeIn";
@@ -24,43 +24,37 @@ interface Category {
   id: string;
   name: string;
   slug: string;
-  description?: string;
 }
 
-function CollectionContent() {
-  const { slug } = useParams();
+export default function ProductsCatalog() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
 
   const [products, setProducts] = useState<Product[]>([]);
-  const [categoryInfo, setCategoryInfo] = useState<Category | null>(null);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [total, setTotal] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
 
+  // Read URL search params
+  const q = searchParams.get("q") || "";
+  const category = searchParams.get("category") || "";
   const priceRange = searchParams.get("priceRange") || "";
   const sort = searchParams.get("sort") || "newest";
   const pageStr = searchParams.get("page") || "1";
   const page = parseInt(pageStr, 10) || 1;
 
   useEffect(() => {
-    if (!slug) return;
-    // Fetch category details
+    // Fetch categories
     apiFetch<Category[]>("/categories")
-      .then((data) => {
-        const found = data.find((c) => c.id === slug || c.slug === slug);
-        if (found) {
-          setCategoryInfo(found);
-        }
-      })
-      .catch((err) => console.error("Error loading categories:", err));
-  }, [slug]);
+      .then((data) => setCategories(data))
+      .catch((err) => console.error("Error fetching categories:", err));
+  }, []);
 
   useEffect(() => {
-    if (!slug) return;
     Promise.resolve().then(() => setLoading(true));
-
+    // Parse price range
     let minPrice: number | null = null;
     let maxPrice: number | null = null;
 
@@ -76,8 +70,10 @@ function CollectionContent() {
       minPrice = 1000000;
     }
 
+    // Build API query
     const queryParams = new URLSearchParams();
-    queryParams.append("category", slug as string);
+    if (q) queryParams.append("q", q);
+    if (category && category !== "all") queryParams.append("category", category);
     if (minPrice !== null) queryParams.append("minPrice", minPrice.toString());
     if (maxPrice !== null) queryParams.append("maxPrice", maxPrice.toString());
     queryParams.append("sort", sort);
@@ -92,10 +88,11 @@ function CollectionContent() {
         setTotal(data.total);
         setTotalPages(data.pages);
       })
-      .catch((err) => console.error("Error loading collection products:", err))
+      .catch((err) => console.error("Error fetching products:", err))
       .finally(() => setLoading(false));
-  }, [slug, priceRange, sort, page]);
+  }, [q, category, priceRange, sort, page]);
 
+  // Helper to update specific search params in URL
   const updateQueryParam = (updates: Record<string, string | null>) => {
     const params = new URLSearchParams(searchParams.toString());
     Object.entries(updates).forEach(([key, value]) => {
@@ -105,13 +102,12 @@ function CollectionContent() {
         params.set(key, value);
       }
     });
+    // Reset to page 1 on filter changes unless page is explicitly updated
     if (!updates.hasOwnProperty("page")) {
       params.delete("page");
     }
     router.push(`${pathname}?${params.toString()}`);
   };
-
-  const collectionName = categoryInfo?.name || (typeof slug === "string" ? slug.toUpperCase() : "Bộ sưu tập");
 
   return (
     <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 w-full">
@@ -123,18 +119,10 @@ function CollectionContent() {
               Trang chủ
             </Link>
           </li>
-          <li>
-            <div className="flex items-center">
-              <ChevronRight className="w-4 h-4 mx-1" />
-              <Link href="/collections" className="hover:text-brand-accent transition-colors">
-                Bộ sưu tập
-              </Link>
-            </div>
-          </li>
           <li aria-current="page">
             <div className="flex items-center">
               <ChevronRight className="w-4 h-4 mx-1" />
-              <span className="text-brand-dark font-medium">{collectionName}</span>
+              <span className="text-brand-dark font-medium">Tất cả sản phẩm</span>
             </div>
           </li>
         </ol>
@@ -143,10 +131,9 @@ function CollectionContent() {
       <FadeIn direction="up">
         <div className="flex flex-col md:flex-row justify-between items-end md:items-center mb-8 gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-brand-dark">{collectionName}</h1>
-            {categoryInfo?.description && (
-              <p className="text-brand-text-secondary mt-2 max-w-xl">{categoryInfo.description}</p>
-            )}
+            <h1 className="text-3xl font-bold text-brand-dark">
+              {q ? `Kết quả tìm kiếm cho: "${q}"` : "Tất cả sản phẩm"}
+            </h1>
             <p className="text-brand-text-secondary mt-2">Hiển thị {total} kết quả</p>
           </div>
           
@@ -171,6 +158,32 @@ function CollectionContent() {
         {/* Sidebar Filters - Desktop Only */}
         <div className="hidden md:block w-64 flex-shrink-0 space-y-8">
           <FadeIn direction="right" delay={0.1}>
+            <div>
+              <h3 className="text-lg font-bold text-brand-dark mb-4">Danh mục</h3>
+              <ul className="space-y-3">
+                <li>
+                  <button 
+                    onClick={() => updateQueryParam({ category: "all" })}
+                    className={`text-sm hover:text-brand-accent transition-colors text-left w-full ${(!category || category === "all") ? 'font-bold text-brand-accent' : 'text-gray-600'}`}
+                  >
+                    Tất cả
+                  </button>
+                </li>
+                {categories.map((cat) => (
+                  <li key={cat.id}>
+                    <button 
+                      onClick={() => updateQueryParam({ category: cat.id })}
+                      className={`text-sm hover:text-brand-accent transition-colors text-left w-full ${category === cat.id ? 'font-bold text-brand-accent' : 'text-gray-600'}`}
+                    >
+                      {cat.name}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </FadeIn>
+
+          <FadeIn direction="right" delay={0.2}>
             <div>
               <h3 className="text-lg font-bold text-brand-dark mb-4">Mức giá</h3>
               <ul className="space-y-3">
@@ -207,7 +220,7 @@ function CollectionContent() {
           ) : products.length === 0 ? (
             <div className="flex flex-col justify-center items-center min-h-[400px] text-gray-500">
               <p className="text-lg font-medium mb-2">Không tìm thấy sản phẩm nào</p>
-              <p className="text-sm">Hãy thử thay đổi bộ lọc</p>
+              <p className="text-sm">Hãy thử thay đổi tiêu chí bộ lọc hoặc từ khóa tìm kiếm</p>
             </div>
           ) : (
             <>
@@ -269,17 +282,5 @@ function CollectionContent() {
         </div>
       </div>
     </main>
-  );
-}
-
-export default function CollectionDetailPage() {
-  return (
-    <Suspense fallback={
-      <div className="flex justify-center items-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-dark"></div>
-      </div>
-    }>
-      <CollectionContent />
-    </Suspense>
   );
 }

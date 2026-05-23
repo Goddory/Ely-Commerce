@@ -25,8 +25,8 @@ export default function Categories() {
     <section className="py-12 px-4 max-w-7xl mx-auto">
       <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {categories.map((category, index) => (
-          <StaggerItem key={index}>
-            <Link href={category.link} className="group relative block aspect-[4/5] overflow-hidden rounded-3xl bg-brand-bg shadow-sm">
+          <StaggerItem key={index} className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl bg-brand-bg shadow-sm group">
+            <Link href={category.link} className="relative block w-full h-full">
               <Image
                 src={category.image}
                 alt={category.title}

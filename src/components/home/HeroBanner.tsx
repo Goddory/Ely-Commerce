@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FadeIn } from "@/components/animations/FadeIn";
 
 export default function HeroBanner() {
@@ -27,12 +28,12 @@ export default function HeroBanner() {
       
       <FadeIn delay={0.4} direction="up">
         <div className="flex gap-4">
-          <button className="bg-brand-accent hover:bg-brand-accent/90 text-white px-8 py-3 rounded-full font-bold transition-transform hover:scale-105 active:scale-95 shadow-lg shadow-brand-accent/20">
+          <Link href="/products" className="bg-brand-accent hover:bg-brand-accent/90 text-white px-8 py-3 rounded-full font-bold transition-transform hover:scale-105 active:scale-95 shadow-lg shadow-brand-accent/20 cursor-pointer">
             Mua Ngay
-          </button>
-          <button className="bg-white hover:bg-brand-accent-light text-brand-dark px-8 py-3 rounded-full font-bold border border-brand-accent/20 transition-transform hover:scale-105 active:scale-95 shadow-sm">
+          </Link>
+          <Link href="/collections" className="bg-white hover:bg-brand-accent-light text-brand-dark px-8 py-3 rounded-full font-bold border border-brand-accent/20 transition-transform hover:scale-105 active:scale-95 shadow-sm cursor-pointer">
             Xem Bộ Sưu Tập
-          </button>
+          </Link>
         </div>
       </FadeIn>
     </section>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ProductCard from "@/components/shared/ProductCard";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations/FadeIn";
 
@@ -34,15 +35,15 @@ export default function NewArrivals() {
   ];
 
   return (
-    <section className="py-24 px-4 max-w-7xl mx-auto">
+    <section className="py-24 px-4 max-w-7xl mx-auto" aria-label="Sản phẩm mới về">
       <FadeIn className="flex justify-between items-end mb-10">
         <div>
           <h2 className="text-3xl md:text-4xl font-bold text-brand-dark mb-2">Hàng Mới Về</h2>
-          <p className="text-brand-text-secondary">Những items cực "cháy" vừa cập bến.</p>
+          <p className="text-brand-text-secondary">Những items cực &quot;cháy&quot; vừa cập bến.</p>
         </div>
-        <button className="hidden md:block text-brand-accent font-bold hover:underline underline-offset-4 transition-all">
+        <Link href="/products" className="hidden md:block text-brand-accent font-bold hover:underline underline-offset-4 transition-all cursor-pointer">
           Xem tất cả &rarr;
-        </button>
+        </Link>
       </FadeIn>
 
       <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -54,9 +55,9 @@ export default function NewArrivals() {
       </StaggerContainer>
       
       <div className="mt-8 text-center md:hidden">
-        <button className="text-brand-accent font-bold hover:underline underline-offset-4 transition-all">
+        <Link href="/products" className="text-brand-accent font-bold hover:underline underline-offset-4 transition-all cursor-pointer">
           Xem tất cả &rarr;
-        </button>
+        </Link>
       </div>
     </section>
   );
