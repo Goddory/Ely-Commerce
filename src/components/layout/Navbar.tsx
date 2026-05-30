@@ -119,21 +119,25 @@ export default function Navbar() {
                   </button>
                   {isUserMenuOpen && (
                     <div className="absolute right-0 mt-3 w-48 bg-white/95 backdrop-blur-md border border-brand-accent/10 rounded-2xl shadow-xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                      <Link 
-                        href="/profile" 
-                        className="block px-4 py-2 text-sm font-semibold text-brand-dark hover:bg-brand-accent/5 hover:text-brand-accent transition-colors"
-                        onClick={() => setIsUserMenuOpen(false)}
+                      <button 
+                        onClick={() => {
+                          router.push("/profile");
+                          setIsUserMenuOpen(false);
+                        }}
+                        className="w-full text-left block px-4 py-2 text-sm font-semibold text-brand-dark hover:bg-brand-accent/5 hover:text-brand-accent transition-colors"
                       >
                         Trang cá nhân
-                      </Link>
+                      </button>
                       {user.role === "Admin" && (
-                        <Link 
-                          href="/admin" 
-                          className="block px-4 py-2 text-sm font-semibold text-brand-accent hover:bg-brand-accent/5 transition-colors border-t border-gray-100"
-                          onClick={() => setIsUserMenuOpen(false)}
+                        <button 
+                          onClick={() => {
+                            router.push("/admin");
+                            setIsUserMenuOpen(false);
+                          }}
+                          className="w-full text-left block px-4 py-2 text-sm font-semibold text-brand-accent hover:bg-brand-accent/5 transition-colors border-t border-gray-100"
                         >
                           Quản trị hệ thống
-                        </Link>
+                        </button>
                       )}
                       <button 
                         onClick={() => {

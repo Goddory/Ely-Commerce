@@ -18,6 +18,8 @@ interface Product {
   stock: number;
   isNew: boolean;
   categoryId: string;
+  averageRating?: number;
+  reviewsCount?: number;
 }
 
 interface Category {
@@ -234,6 +236,8 @@ export default function ProductsCatalog() {
                         image={product.imageUrl}
                         price={`${product.price.toLocaleString("vi-VN")}₫`}
                         isNew={product.isNew}
+                        rating={product.averageRating}
+                        reviewsCount={product.reviewsCount}
                       />
                     </StaggerItem>
                   ))}

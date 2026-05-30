@@ -4,6 +4,12 @@ import React, { useState, useEffect } from "react";
 import { X, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 
+interface ProductImage {
+  id: string;
+  imageUrl: string;
+  displayOrder: number;
+}
+
 interface Product {
   id: string;
   name: string;
@@ -16,6 +22,7 @@ interface Product {
   sizeOptions?: string;
   isNew: boolean;
   categoryId: string;
+  images?: ProductImage[];
 }
 
 interface ProductModalProps {
@@ -37,6 +44,7 @@ export default function ProductModal({ isOpen, onClose, onSave, product, categor
   const [sizeOptions, setSizeOptions] = useState("");
   const [isNew, setIsNew] = useState(false);
   const [categoryId, setCategoryId] = useState("");
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
   
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -54,6 +62,14 @@ export default function ProductModal({ isOpen, onClose, onSave, product, categor
         setSizeOptions(product.sizeOptions || "");
         setIsNew(product.isNew);
         setCategoryId(product.categoryId);
+        
+        const secondary = product.images 
+          ? product.images
+              .sort((a, b) => a.displayOrder - b.displayOrder)
+              .map(img => img.imageUrl)
+              .filter(url => url !== product.imageUrl)
+          : [];
+        setImageUrls(secondary);
       } else {
         setName("");
         setPrice("");
@@ -65,6 +81,7 @@ export default function ProductModal({ isOpen, onClose, onSave, product, categor
         setSizeOptions("S, M, L, XL");
         setIsNew(true);
         setCategoryId(categories[0]?.id || "ao-thun");
+        setImageUrls([]);
       }
       setError("");
     };
@@ -116,7 +133,8 @@ export default function ProductModal({ isOpen, onClose, onSave, product, categor
           colorOptions,
           sizeOptions,
           isNew,
-          categoryId
+          categoryId,
+          imageUrls: [imageUrl, ...imageUrls.filter(url => url.trim() !== "")]
         })
       });
 
@@ -250,6 +268,48 @@ export default function ProductModal({ isOpen, onClose, onSave, product, categor
               className="w-full px-4 py-2.5 border border-gray-200 rounded-2xl text-brand-dark text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent"
               placeholder="https://..."
             />
+          </div>
+
+          {/* Secondary Images List */}
+          <div className="space-y-2">
+            <div className="flex justify-between items-center">
+              <label className="block text-sm font-semibold text-brand-dark">
+                Hình ảnh phụ (URLs)
+              </label>
+              <button
+                type="button"
+                onClick={() => setImageUrls([...imageUrls, ""])}
+                className="text-xs font-bold text-brand-accent hover:underline flex items-center gap-1 cursor-pointer"
+              >
+                + Thêm ảnh phụ
+              </button>
+            </div>
+
+            {imageUrls.map((url, index) => (
+              <div key={index} className="flex gap-2 items-center">
+                <input
+                  type="url"
+                  value={url}
+                  onChange={(e) => {
+                    const updated = [...imageUrls];
+                    updated[index] = e.target.value;
+                    setImageUrls(updated);
+                  }}
+                  className="flex-1 px-4 py-2 border border-gray-200 rounded-2xl text-brand-dark text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent"
+                  placeholder="https://..."
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    const updated = imageUrls.filter((_, i) => i !== index);
+                    setImageUrls(updated);
+                  }}
+                  className="text-red-500 hover:text-red-700 p-2 hover:bg-red-50 rounded-full transition-colors cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            ))}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

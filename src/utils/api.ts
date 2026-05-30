@@ -23,6 +23,16 @@ export async function apiFetch<T>(endpoint: string, options?: RequestInit): Prom
     },
   });
 
+  if (response.status === 401) {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("ely_token");
+      localStorage.removeItem("ely_user");
+      window.location.href = "/login";
+      // Return a pending promise to prevent subsequent code execution during page unload
+      return new Promise(() => {});
+    }
+  }
+
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
     throw new Error(errorData.message || `API error: ${response.status}`);
